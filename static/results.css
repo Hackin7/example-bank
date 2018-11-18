@@ -4,7 +4,7 @@
 }
 
 .section{
-   overflow:hidden;
+   overflow:auto;
    max-height: 50%;
 }
 ul {
