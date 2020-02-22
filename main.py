@@ -1,7 +1,10 @@
+import sys
+sys.path.insert(1, './Database')
+import database as dbLib# = __import__('./Database/database.py')
+db = dbLib.Database()
+
 from flask import Flask, render_template, request
 app = Flask(__name__)
-
-ntp = __import__('DataScience')
 
 @app.route('/')
 def index():
@@ -16,18 +19,16 @@ def hello(name,score):
 
 @app.route('/results',methods=['POST', 'GET']) 
 def result():
-    if request.method=='POST':
-        text = request.form['text']
-        word_type = ntp.stop_words(ntp.word_tokenize(text))
-        return render_template("results.html",
-        text = text,
-        useful = word_type[0],
-        stop = word_type[1],
-        punctuation = word_type[2],
-        stemlem = ntp.stemlem(ntp.word_tokenize(text)),
-        pos = ntp.pos_tagging(ntp.word_tokenize(text)),
-        gram = ntp.grams(ntp.word_tokenize(text)),
-        freqstats=ntp.frequency_statistics(text))
+    #text = request.form['text']#For POST
+    search = request.args.get("search")
+    examples = db.search(search)
+    return render_template("results.html",search=search,len=len,examples=examples)
+
+@app.route('/example/<int:exampleId>',methods=['POST', 'GET']) 
+def example(exampleId):
+    #exampleId = int(request.args.get("id"))
+    example = db.getID(exampleId)
+    return render_template("example.html",example=example)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

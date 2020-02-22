@@ -1,0 +1,106 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}" />
+</head>
+
+<body><div class="content">
+
+<h1>H1 General Paper Example Bank</h1>
+<p>Only IMPORTANT Examples which can actually be used for H1 General Paper</p>
+</div>
+
+<br/><br/>
+<div class="content">
+    <h2 class="section">{{example.name}}</h2>
+    <b style="display:inline;">Topic:</b>
+    <p style="display:inline;" class="section">{{example.topics}}</p>
+    <br/><br/>
+    
+    <b style="display:inline;">Description:</b><br/>
+    <p>{{example.description|safe}}</p>
+</div>
+
+<br/><br/>
+<footer class="content">
+    <h3>Test yourself</h3>
+    <button onclick="main.mark()" style="background-color:#8BC34A;" class="button">Mark</button>
+    <button onclick="main.showAnswers()" style="background-color:#f44336;" class="button">Show Answers</button>
+      <span> Score:</span><span id="score"></span>
+</footer>
+
+</body>
+<!--Testing-->
+<style>
+.wrong{color:red;}
+</style>
+<script>
+// https://stackoverflow.com/questions/13388379/js-how-to-replace-html-element-with-another-element-text-represented-in-string
+function replaceElement(element,replace){
+  var str = '<a href="http://www.com">item to replace</a>'; //it can be anything
+  if(element.outerHTML) { //if outerHTML is supported
+      element.outerHTML=replace; 
+  }
+  else { //if outerHTML is not supported, there is a weird but crossbrowsered trick
+      var tmpElement=document.createElement("div");
+      tmpElement.innerHTML='<!--THIS DATA SHOULD BE REPLACED-->';
+      elementParent=element.parentNode; 
+      elementParent.replaceChild(tmpElement,element); 
+      elementParent.innerHTML=ObjParent.innerHTML.replace('<div><!--THIS DATA SHOULD BE REPLACED--></div>',replace);
+  }
+}
+
+elements = {
+  toReplace: "code", // CSS Attribute
+  input: ["<input type='textbox' value='","'>"],
+  answer: ["<code>","</code>"],
+  concat: function(element,value){
+    return element[0] + value + element[1];
+  }
+}
+
+function Main(replaceElement,elements){
+  //Answers
+  answers = [];
+  this.reset = function(){
+    this.elements = document.querySelectorAll(elements.toReplace);
+    this.elements.forEach(function(node,index) {
+      // Do whatever you want with the node object.
+      answers.push(node.innerHTML);
+      replaceElement(node, elements.concat(elements.input,""));
+    });
+  }
+  this.reset();
+  this.elements = document.querySelectorAll("input");
+  this.answers = answers
+  
+  this.score = 0; // Debugging
+  this.mark = function(){
+    score = 0;
+    this.elements.forEach(function(node,index) {
+      if (this.answers[index] == node.value){
+        node.setAttribute("class","");
+        score += 1
+      }
+      else{
+        node.setAttribute("class","wrong");
+      }
+    });
+    this.score = score; //Debugging
+    document.getElementById("score").innerHTML = String(this.score) + '/' + String(this.elements.length);
+  }
+  
+  this.showAnswers = function(){
+    this.elements = document.querySelectorAll("input");
+    if (this.elements.length > 0){
+      this.elements.forEach(function(node,index) {
+        replaceElement(node, elements.concat(elements.answer,this.answers[index]) );
+      });
+    }else{
+      this.reset();
+    }
+  }
+}
+var main = new Main(replaceElement,elements);</script>
+</html>

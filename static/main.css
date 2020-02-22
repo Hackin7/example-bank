@@ -7,10 +7,10 @@
     padding: 10px;
 }
 /*@media screen and (min-width: 600px){
-	.content{width: 80%;}
+    .content{width: 80%;}
 }*/
 @media screen and (min-width: 800px){
-	.content{width: 90%;}
+    .content{width: 90%;}
 }
 textarea{resize:vertical;width:100%}
 .button {
@@ -25,4 +25,5 @@ textarea{resize:vertical;width:100%}
     display: inline-block;
     font-size: 1em;
 }
+
 span, p{white-space:pre-wrap;}

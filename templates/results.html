@@ -7,125 +7,16 @@
 
 <body><div class="content">
 
-<h1>Simple Text Analyser Flask Web App</h1>
-<p>To Demonstrate NLTK Text Analysis</p>
+<h1>H1 General Paper Example Bank</h1>
+<p>Only IMPORTANT Examples which can actually be used for H1 General Paper</p>
+<h4 style="display: inline;">Search Query:</h4>
+<p style="display: inline;" class="section">{{search}}</p>
 
-<h4>Given Text</h4>
-<p class="section">{{text}}</p>
-
-<div id="wordtype" class="section">
-<div>
-<h4>Useful Words</h4>
-<ul>
-    {% for u in useful %}
-    <li>{{u}}</li>
-    {% endfor %}
-</ul>
-</div>
-
-<div>
-<h4>Stop Words</h4>
-<ul>
-    {% for u in stop %}
-    <li>{{u}}</li>
-    {% endfor %}
-</ul>
-</div>
-<div>    
-<h4>Punctuation</h4>
-<ul>
-    {% for u in punctuation %}
-    <li>{{u}}</li>
-    {% endfor %}
-</ul>
-</div>
-</div>
-
-<h4>Stemmer and Lemmer</h4>
-<div class="section">
-    <table>
-    <tr>
-        <th>Word</th>
-        <th>Stem</th>
-        <th>Lem</th>
-    </tr>
-    {% for p in stemlem %}
-    <tr>
-        <td> {{ p[0] }} </td>
-        <td> {{ p[1] }} </td>
-        <td> {{ p[2] }} </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>    
-
-<h4>POS_Tagging</h4>
-<div class="section">
-    <table>
-    <tr>
-        <th> Word </th>
-        <th> Type </th>
-    </tr>
-    {% for p in pos %}
-    <tr>
-        <td> {{ p[0] }} </td>
-        <td> {{ p[1] }} </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>
-
-<h4>Bi/Tri Grams (groups of words)</h4>
-<div id="wordtype" class="section">
-<div>
-    <table>
-    <tr>
-        <th colspan="2">Bigram</th>
-    </tr>
-    {% for p in gram[0] %}
-    <tr>
-        <td> {{ p[0] }} </td>
-        <td> {{ p[1] }} </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>
-<span width="1px"> </span>
-    <table>
-    <tr>
-        <th colspan="3">Trigram</th>
-    </tr>
-    {% for p in gram[1] %}
-    <tr>
-        <td> {{ p[0] }} </td>
-        <td> {{ p[1] }} </td>
-        <td> {{ p[2] }} </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>
-
-<h4>Frequency Related Statistics</h4>
-<div class="section">
-    <table>
-    <tr>
-        <th>Word</th>
-        <th>TF</th>
-        <th>DF</th>
-        <th>IDF</th>
-        <th>TFIDF</th>
-    </tr>
-    {% for word in freqstats %}
-    <tr>
-        <td> {{ word[0] }} </td>
-        <td> {{ word[1] }} </td>
-        <td> {{ word[2] }} </td>
-        <td> {{ word[3] }} </td>
-        <td> {{ word[4] }} </td>
-    </tr>
-    {% endfor %}
-    </table>
-</div>    
+<h4>Results</h4>
+{%for i in range(len(examples))%} 
+  
+    <li><a href="/example/{{examples[i][0]}}">{{examples[i][1]}}</a></li> 
+{%endfor%} 
 
 </div>
 </body>
