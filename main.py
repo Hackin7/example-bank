@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(1, './Database')
 import database as dbLib# = __import__('./Database/database.py')
-db = dbLib.Database()
+db = dbLib.Database('./Database/examples.db')
 
 from flask import Flask, render_template, request
 app = Flask(__name__)
@@ -27,6 +27,7 @@ def result():
 @app.route('/example/<int:exampleId>',methods=['POST', 'GET']) 
 def example(exampleId):
     #exampleId = int(request.args.get("id"))
+    print(int(exampleId))
     example = db.getID(exampleId)
     return render_template("example.html",example=example)
 
