@@ -49,6 +49,7 @@ class Database:
         '''
         with sqlite3.connect(self.dbFile) as conn:
             conn.execute('INSERT INTO examples(name,topic,description) VALUES(?,?,?)',tuple(data))
+            conn.commit()
     
     def report(self,size=-1):
         with sqlite3.connect(self.dbFile) as conn:
@@ -71,4 +72,4 @@ class Database:
 if __name__=='__main__':
     db = Database()
     print("Report\n")
-    db.report()
+    db.report(5)
